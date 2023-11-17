@@ -26,7 +26,7 @@ TC1
     Wait Until Element Contains    //h2    Register
     Fill Register information AccountID password Fname Lname
     Click Submit button and check the success alert text
-    Verify RedirectURL    http://localhost:3000
+    Verify RedirectURL    http://localhost:3000/
 
 TC2
     Open Browser    http://localhost:3000/    chrome
