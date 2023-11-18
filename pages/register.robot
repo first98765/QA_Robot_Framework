@@ -79,6 +79,18 @@ Fill Register information AccountID=1234567890A
 Fill Register information AccountID=1234567890(already exit)
     Fill Registration Form    1234567890    2566    FirstName    LastName
 
+Fill Register information password=256
+    Fill Registration Form    1234567890    256    FirstName    LastName
+
+Fill Register information password=2566
+    Fill Registration Form    1234567890    2566    FirstName    LastName
+
+Fill Register information password=25667
+    Fill Registration Form    1234567890    25667    FirstName    LastName
+
+Fill Register information password=256A
+    Fill Registration Form    1234567890    256A    FirstName    LastName
+
 Click Register button
     Submit Form
 

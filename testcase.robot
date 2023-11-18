@@ -6,6 +6,10 @@ Registration Tests
     TC3
     TC4
     TC5
+    TC6
+    TC7
+    TC8
+    TC9
 
 
 *** Settings ***
@@ -59,6 +63,32 @@ TC5
     Wait Register Page Load
     Fill Register information AccountID=1234567890(already exit)
     Check Register Error    Account ID already existed
+
+TC6
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=256
+    Check Register Error    Please fill password 4 digits
+
+TC7
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=2566
+    Click Register button
+    Check Alert and click OK
+    Check Present URL    http://localhost:3000/
+
+TC8
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=25667
+    Check Register Error    Please fill password 4 digits
+
+TC9
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=256A
+    Check Register Error    Please put password only number
 
 # TC3
 #    Open Web    /
