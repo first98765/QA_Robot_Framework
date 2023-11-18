@@ -121,15 +121,6 @@ Fill Login information Password=123A
 Fill Login information Password=123
     Fill Login Form    1234567890    123
 
-Fill Amount -1
-    Fill Amount Form    -1
-
-Fill Withdraw -1
-    Fill Withdraw Form    -1
-
-Fill Amount 100000
-    Fill Amount Form    100000
-
 Click Register button
     Submit Form
 
