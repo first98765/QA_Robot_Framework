@@ -109,6 +109,9 @@ Fill Login information AccountID=123456789A
 Fill Login information AccountID=123456789
     Fill Login Form    123456789    2566
 
+Fill Login information AccountID=1234567890
+    Fill Login Form    1234567890    2566
+
 Fill Login information AccountID=9999999999
     Fill Login Form    9999999999    9999
 
@@ -117,6 +120,15 @@ Fill Login information Password=123A
 
 Fill Login information Password=123
     Fill Login Form    1234567890    123
+
+Fill Amount -1
+    Fill Amount Form    -1
+
+Fill Withdraw -1
+    Fill Withdraw Form    -1
+
+Fill Amount 100000
+    Fill Amount Form    100000
 
 Click Register button
     Submit Form
@@ -141,8 +153,24 @@ Login Page Wait Load
 Wait Register Page Load
     Wait Until Element Contains    //h2    Register
 
+Account Page Wait Load
+    Wait Until Element Contains    //h2    Account ID:
+
+Deposit check error
+    [Arguments]    ${input_error}
+    Submit Form
+    Wait Until Element Is Visible    xpath=//*[@cid="deposite-error-mes"]
+    ${element_text}    Get Text    xpath=//*[@cid="deposite-error-mes"]
+    Should Be Equal As Strings    ${element_text}    ${input_error}
+
 Check Alert and click OK
     Alert Should Be Present    success    ACCEPT
+
+Account click confirm deposit
+    Submit Form
+
+Click Button Login
+    Submit Form
 
 Check Present URL
     [Arguments]    ${expectURL}
