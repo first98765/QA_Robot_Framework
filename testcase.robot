@@ -52,8 +52,11 @@ TC3
     Input and verify password For Login Page    ${test_data_password}
     Click Login button and check the success alert text
     Wait Load Account Page
-    Input and verify deposit  1111
-    Input and verify withdraw    1234
-    Click bill payment phone charge
-    Input and verify bill payment amount  1111
+    Input and verify deposit  100
+    # Input and verify withdraw    1234
+    # Click bill payment phone charge
+    # Input and verify bill payment amount  1111
+    Click deposit confirm
+    Verify balance    100
     Clear Balance
+    

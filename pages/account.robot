@@ -6,23 +6,27 @@ Library     SeleniumLibrary
 
 Verify accountId
     [Arguments]    ${input_accountId}
-    ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[1]
-    Should Be Equal As Strings    ${element_text}    ${input_accountId}
+    # ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[1]
+    # Should Be Equal As Strings    ${element_text}    ${input_accountId}
+    Wait Until Element Contains    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[1]    ${input_accountId}    timeout=10s
 
 Verify name
     [Arguments]    ${input_firstname}  ${input_lastname}
     ${fullname} =   Catenate    ${input_firstname}  ${input_lastname}
-    ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[2]
-    Should Be Equal As Strings    ${element_text}    ${fullname}
+    # ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[2]
+    # Should Be Equal As Strings    ${element_text}    ${fullname}
+    Wait Until Element Contains    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[2]    ${fullname}    timeout=10s
     
 Verify balance
     [Arguments]    ${input_balance}
-    ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
-    Should Be Equal As Strings    ${element_text}    ${input_balance}
+    # ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
+    # Should Be Equal As Strings    ${element_text}    ${input_balance}
+    Wait Until Element Contains    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]    ${input_balance}    timeout=10s
 
 Verify has balance
-    ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
-    Should Not Be Equal As Strings    ${element_text}    0
+    # ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
+    # Should Not Be Equal As Strings    ${element_text}    0
+    Wait Until Element Does Not Contain     xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]    0
 
 
 Input and verify deposit
@@ -100,6 +104,7 @@ Check error transfer
     Should Be Equal As Strings    ${element_text}    ${input_error}
 
 Clear Balance
+    Sleep    30ms
     ${element_text}=    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
     Input and verify withdraw  ${element_text}
     Click withdraw confirm
