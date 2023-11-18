@@ -1,15 +1,16 @@
 *** Comments ***
 Registration Tests
     [Tags]    registration
-    TC1
-    TC2
-    TC3
-    TC4
-    TC5
-    TC6
-    TC7
-    TC8
-    TC9
+    Scenario1
+    Scenario2
+    Scenario3
+    Scenario4
+    Scenario5
+    Scenario10
+    Scenario11
+    Scenario12
+    Scenario13
+    Scenario14
 
 
 *** Settings ***
@@ -32,63 +33,123 @@ ${timestamp}        Get Time    epoch    result_format=%s
 
 
 *** Test Cases ***
-TC1
+Scenario1
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=123456789
     Check Register Error    Please fill accountId 10 digits
 
-TC2
-    Open Web    /register
-    Wait Register Page Load
-    Fill Register information AccountID=1234567890
-    Click Register button
-    Check Alert and click OK
-    Check Present URL    http://localhost:3000/
-
-TC3
-    Open Web    /register
-    Wait Register Page Load
-    Fill Register information AccountID=12345678901
-    Check Register Error    Please fill accountId 10 digits
-
-TC4
+Scenario2
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=1234567890A
     Check Register Error    Please put accountId only number
 
-TC5
-    Open Web    /register
-    Wait Register Page Load
-    Fill Register information AccountID=1234567890(already exit)
-    Check Register Error    Account ID already existed
-
-TC6
+Scenario3
     Open Web    /register
     Wait Register Page Load
     Fill Register information password=256
     Check Register Error    Please fill password 4 digits
 
-TC7
-    Open Web    /register
-    Wait Register Page Load
-    Fill Register information password=2566
-    Click Register button
-    Check Alert and click OK
-    Check Present URL    http://localhost:3000/
-
-TC8
-    Open Web    /register
-    Wait Register Page Load
-    Fill Register information password=25667
-    Check Register Error    Please fill password 4 digits
-
-TC9
+Scenario4
     Open Web    /register
     Wait Register Page Load
     Fill Register information password=256A
     Check Register Error    Please put password only number
+
+Scenario5
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information fname lname less than 30
+    Check Register Error    your name length is exceed 30 digits
+
+Scenario10
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=123456789A
+    Login Page Check Error    Please put accountId only number
+
+Scenario11
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=123456789
+    Login Page Check Error    Please fill accountId 10 digits
+
+Scenario12
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=9999999999
+    Login Page Check Error    Not Found User
+
+Scenario13
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=123A
+    Login Page Check Error    Please put password only number
+
+Scenario14
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=123
+    Login Page Check Error    Please fill password 4 digits
+
+# TC1
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information AccountID=123456789
+#    Check Register Error    Please fill accountId 10 digits
+
+# TC2
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information AccountID=1234567890
+#    Click Register button
+#    Check Alert and click OK
+#    Check Present URL    http://localhost:3000/
+
+# TC3
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information AccountID=12345678901
+#    Check Register Error    Please fill accountId 10 digits
+
+# TC4
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information AccountID=1234567890A
+#    Check Register Error    Please put accountId only number
+
+# TC5
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information AccountID=1234567890(already exit)
+#    Check Register Error    Account ID already existed
+
+# TC6
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information password=256
+#    Check Register Error    Please fill password 4 digits
+
+# TC7
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information password=2566
+#    Click Register button
+#    Check Alert and click OK
+#    Check Present URL    http://localhost:3000/
+
+# TC8
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information password=25667
+#    Check Register Error    Please fill password 4 digits
+
+# TC9
+#    Open Web    /register
+#    Wait Register Page Load
+#    Fill Register information password=256A
+#    Check Register Error    Please put password only number
 
 # TC3
 #    Open Web    /
