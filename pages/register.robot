@@ -68,7 +68,7 @@ Fill Register information AccountID password Fname Lname
     ${AccountID} =    Generate Random String    10    [NUMBERS]
     Fill Registration Form    ${AccountID}    1234    Taratip    Suwannasart
 
-Click Register button and check the success alert text
+Click Register button
     Submit Form
 
 Check Register Error

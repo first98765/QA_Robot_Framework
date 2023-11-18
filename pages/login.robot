@@ -28,7 +28,7 @@ Input and verify password For Login Page
     ${password}    Get Value    //*[@id='password']
     Should Be Equal    ${password}    ${input_password}
 
-Click Login button and check the success alert text
+Click Login button
     Submit Form
 
 Check Login Error

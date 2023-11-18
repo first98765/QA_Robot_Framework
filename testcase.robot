@@ -34,14 +34,14 @@ TC1
     Open Web
     Wait Register Page Load
     Fill Register information AccountID password Fname Lname
-    Click Register button and check the success alert text
+    Click Register button
     Verify RedirectURL    http://localhost:3000/
 
 TC2
     Open Web
     Wait Login Page Load
     Fill Registration Form    1234567    1234    Taratip    Suwannasart
-    Submit Form
+    Click Register button
     Wait Until Element Contains    //div    Please fill accountId 10 digits
 
 TC3
@@ -50,7 +50,7 @@ TC3
     Wait Login Page Load
     Input and verify accountId For Login Page    ${test_data_account_id} 
     Input and verify password For Login Page    ${test_data_password}
-    Click Login button and check the success alert text
+    Click Login button
     Wait Load Account Page
     Input and verify deposit  100
     # Input and verify withdraw    1234
