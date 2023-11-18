@@ -93,6 +93,7 @@ Scenario28
     Input and verify transfer accountID    1111111111
     Input and verify transfer amount    -1
     Click transfer confirm
+
     Check error transfer    Please put only number
 
 Scenario37

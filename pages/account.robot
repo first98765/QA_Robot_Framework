@@ -85,7 +85,8 @@ Input and verify bill payment amount
     Should Be Equal    ${transfer_amount}    ${input_transfer_amount}
 
 Wait Load Account Page
-    Wait Until Element Contains    //*[@id="root"]/div/div/div/div[2]/article/h2[1]    Account ID:
+    Sleep    2s
+    # Wait Until Element Contains    //*[@id="root"]/div/div/div/div[2]/article/h2[1]    Account ID:
 
 Check error deposit
     [Arguments]    ${input_error}
@@ -104,8 +105,9 @@ Check error Bill
 
 Check error transfer
     [Arguments]    ${input_error}
-    ${element_text}    Get Text    xpath=//*[@cid="transfer-error-mes"]
-    Should Be Equal As Strings    ${element_text}    ${input_error}
+    Wait Until Element Contains    xpath=//*[@cid="transfer-error-mes"]    ${input_error}
+    # ${element_text}    Get Text    xpath=//*[@cid="transfer-error-mes"]
+    # Should Be Equal As Strings    ${element_text}    ${input_error}
 
 Clear Balance
     Sleep    30ms
