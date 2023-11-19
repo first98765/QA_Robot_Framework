@@ -32,13 +32,13 @@ ${timestamp}        Get Time    epoch    result_format=%s
 
 
 *** Test Cases ***
-Scenario1
+Scenario1 register error not 10 digits
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=123456789
-    Check Register Error    Please fill accountId 10 digits
+    Check Register Error    ${error_please_fill_accountId_10_digits}
 
-Scenario9
+Scenario9 register pass
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=1234567890
@@ -46,13 +46,13 @@ Scenario9
     Check Alert and click OK
     Check Present URL    http://localhost:3000/
 
-Scenario16
+Scenario16 Login error not 10 digits
     Open Web    /
     Login Page Wait Load
     Fill Login information AccountID=123456789
-    Login Page Check Error    Please fill accountId 10 digits
+    Login Page Check Error    ${error_please_fill_accountId_10_digits}
 
-Scenario22
+Scenario22 Login pass but deposit error
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -61,9 +61,9 @@ Scenario22
     Wait Load Account Page
     Input and verify deposit    -1
     Click deposit confirm
-    Check error deposit    Please put only number
+    Check error deposit    ${error_please_put_pnly_number}
 
-Scenario24
+Scenario24 Log in pass and deposit pass but withdraw error
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -75,9 +75,9 @@ Scenario24
     Wait Load Account Page
     Input and verify withdraw    -1
     Click withdraw confirm
-    Check error withdraw    Please put only number
+    Check error withdraw    ${error_please_put_pnly_number}
 
-Scenario28
+Scenario28 Log in pass and deposit pass and withdraw pass and transfer error
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -94,9 +94,9 @@ Scenario28
     Input and verify transfer amount    -1
     Click transfer confirm
 
-    Check error transfer    Please put only number
+    Check error transfer    ${error_please_put_pnly_number}
 
-Scenario37
+Scenario37 Log in pass and deposit pass and withdraw pass and transfer pass
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -113,7 +113,7 @@ Scenario37
     Input and verify transfer amount    1
     Click transfer confirm
 
-Scenario42
+Scenario42 Log in pass and bill error
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -123,9 +123,9 @@ Scenario42
     Click bill payment phone charge
     Input and verify bill payment amount    0
     Click bill payment confirm
-    Check error Bill    Please put only number
+    Check error Bill    ${error_please_put_pnly_number}
 
-Scenario46
+Scenario46 Log in pass and bill pass
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -140,19 +140,19 @@ Scenario46
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information password=256
-#    Check Register Error    Please fill password 4 digits
+#    Check Register Error    ${error_please_fill_password_4_digits}
 
 # Scenario4
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information password=256A
-#    Check Register Error    Please put password only number
+#    Check Register Error    ${error_please_put_password_only_number}
 
 # Scenario5
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information fname lname less than 30
-#    Check Register Error    your name length is exceed 30 digits
+#    Check Register Error    ${error_your_name_length_is_exceed_30_digits}
 
 # Scenario10
 #    Open Web    /
@@ -164,31 +164,31 @@ Scenario46
 #    Open Web    /
 #    Login Page Wait Load
 #    Fill Login information AccountID=123456789
-#    Login Page Check Error    Please fill accountId 10 digits
+#    Login Page Check Error    ${error_please_fill_accountId_10_digits}
 
 # Scenario12
 #    Open Web    /
 #    Login Page Wait Load
 #    Fill Login information AccountID=9999999999
-#    Login Page Check Error    Not Found User
+#    Login Page Check Error    ${error_not_found_user}
 
 # Scenario13
 #    Open Web    /
 #    Login Page Wait Load
 #    Fill Login information Password=123A
-#    Login Page Check Error    Please put password only number
+#    Login Page Check Error    ${error_please_put_password_only_number}
 
 # Scenario14
 #    Open Web    /
 #    Login Page Wait Load
 #    Fill Login information Password=123
-#    Login Page Check Error    Please fill password 4 digits
+#    Login Page Check Error    ${error_please_fill_password_4_digits}
 
 # TC1
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information AccountID=123456789
-#    Check Register Error    Please fill accountId 10 digits
+#    Check Register Error    ${error_please_fill_accountId_10_digits}
 
 # TC2
 #    Open Web    /register
@@ -202,7 +202,7 @@ Scenario46
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information AccountID=12345678901
-#    Check Register Error    Please fill accountId 10 digits
+#    Check Register Error    ${error_please_fill_accountId_10_digits}
 
 # TC4
 #    Open Web    /register
@@ -220,7 +220,7 @@ Scenario46
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information password=256
-#    Check Register Error    Please fill password 4 digits
+#    Check Register Error    ${error_please_fill_password_4_digits}
 
 # TC7
 #    Open Web    /register
@@ -234,13 +234,13 @@ Scenario46
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information password=25667
-#    Check Register Error    Please fill password 4 digits
+#    Check Register Error    ${error_please_fill_password_4_digits}
 
 # TC9
 #    Open Web    /register
 #    Wait Register Page Load
 #    Fill Register information password=256A
-#    Check Register Error    Please put password only number
+#    Check Register Error    ${error_please_put_password_only_number}
 
 # TC3
 #    Open Web    /

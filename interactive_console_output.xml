@@ -1,28 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.11.4 on darwin)" generated="20231118 22:52:28.150" rpa="false" schemaversion="4">
-<suite id="s1" name="Robot Interactive Console" source="/Users/supakijbuasod/.vscode/extensions/robocorp.robotframework-lsp-1.11.0/src/robotframework_ls/vendored/robotframework_interactive/robot_interactive_console.robot">
+<robot generator="Robot 6.1.1 (Python 3.9.16 on darwin)" generated="20231119 09:35:05.598" rpa="false" schemaversion="4">
+<suite id="s1" name="Robot Interactive Console" source="/Users/tanathep/.vscode/extensions/robocorp.robotframework-lsp-1.11.0/src/robotframework_ls/vendored/robotframework_interactive/robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
 <kw name="Open Web">
 <arg>/</arg>
-<msg timestamp="20231118 22:52:28.463" level="FAIL">No keyword with name 'Open Web' found.</msg>
-<status status="FAIL" starttime="20231118 22:52:28.463" endtime="20231118 22:52:28.463"/>
+<msg timestamp="20231119 09:35:05.916" level="FAIL">No keyword with name 'Open Web' found.</msg>
+<status status="FAIL" starttime="20231119 09:35:05.916" endtime="20231119 09:35:05.916"/>
 </kw>
-<kw name="Wait Register Page Load">
-<status status="NOT RUN" starttime="20231118 22:52:28.464" endtime="20231118 22:52:28.464"/>
+<kw name="Login Page Wait Load">
+<status status="NOT RUN" starttime="20231119 09:35:05.917" endtime="20231119 09:35:05.917"/>
 </kw>
-<kw name="Fill Register information fname lname less than 30">
-<status status="NOT RUN" starttime="20231118 22:52:28.464" endtime="20231118 22:52:28.464"/>
+<kw name="Input and verify accountId For Login Page">
+<arg>1234567890</arg>
+<status status="NOT RUN" starttime="20231119 09:35:05.918" endtime="20231119 09:35:05.918"/>
 </kw>
-<kw name="Check Register Error">
-<arg>your name length is exceed 30 digits</arg>
-<status status="NOT RUN" starttime="20231118 22:52:28.465" endtime="20231118 22:52:28.465"/>
+<kw name="Input and verify password For Login Page">
+<arg>2566</arg>
+<status status="NOT RUN" starttime="20231119 09:35:05.918" endtime="20231119 09:35:05.918"/>
 </kw>
-<status status="PASS" starttime="20231118 22:52:28.156" endtime="20231118 22:52:37.072"/>
+<kw name="Click Login button">
+<status status="NOT RUN" starttime="20231119 09:35:05.919" endtime="20231119 09:35:05.919"/>
 </kw>
-<status status="PASS" starttime="20231118 22:52:28.156" endtime="20231118 22:52:37.073"/>
+<kw name="Wait Load Account Page">
+<status status="NOT RUN" starttime="20231119 09:35:05.920" endtime="20231119 09:35:05.920"/>
+</kw>
+<kw name="Input and verify deposit">
+<arg>100000</arg>
+<status status="NOT RUN" starttime="20231119 09:35:05.921" endtime="20231119 09:35:05.921"/>
+</kw>
+<kw name="Click deposit confirm">
+<status status="NOT RUN" starttime="20231119 09:35:05.922" endtime="20231119 09:35:05.922"/>
+</kw>
+<kw name="Wait Load Account Page">
+<status status="NOT RUN" starttime="20231119 09:35:05.922" endtime="20231119 09:35:05.922"/>
+</kw>
+<kw name="Input and verify withdraw">
+<arg>-1</arg>
+<status status="NOT RUN" starttime="20231119 09:35:05.923" endtime="20231119 09:35:05.923"/>
+</kw>
+<kw name="Click withdraw confirm">
+<status status="NOT RUN" starttime="20231119 09:35:05.924" endtime="20231119 09:35:05.924"/>
+</kw>
+<kw name="Check error withdraw">
+<arg>Please put only number</arg>
+<status status="NOT RUN" starttime="20231119 09:35:05.925" endtime="20231119 09:35:05.925"/>
+</kw>
+<status status="PASS" starttime="20231119 09:35:05.607" endtime="20231119 09:35:07.383"/>
+</kw>
+<status status="PASS" starttime="20231119 09:35:05.606" endtime="20231119 09:35:07.383"/>
 </test>
-<status status="PASS" starttime="20231118 22:52:28.150" endtime="20231118 22:52:37.074"/>
+<status status="PASS" starttime="20231119 09:35:05.598" endtime="20231119 09:35:07.384"/>
 </suite>
 <statistics>
 <total>
