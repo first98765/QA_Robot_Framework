@@ -32,26 +32,101 @@ ${timestamp}        Get Time    epoch    result_format=%s
 
 
 *** Test Cases ***
-Scenario1 register error not 10 digits
+Scenario1 ลงทะเบียนเเบบไม่ผ่าน Account number 9 digits
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=123456789
     Check Register Error    ${error_please_fill_accountId_10_digits}
 
-Scenario9 register pass
+Scenario2 ลงทะเบียนเเบบไม่ผ่าน Account number 11 digits
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information AccountID=12345678901
+    Check Register Error    ${error_please_fill_accountId_10_digits}
+
+Scenario3 ลงทะเบียนเเบบไม่ผ่าน Account number (only number)
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information AccountID=12345678901
+    Check Register Error    ${error_please_fill_accountId_10_digits}
+
+Scenario4 ลงทะเบียนเเบบไม่ผ่าน Account number (Account ID alrady existed)
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information AccountID=1234567890(already exit)
+    Check Register Error    ${error_account_id_already_existed}
+Scenario5 ลงทะเบียนเเบบไม่ผ่าน Password (error 3 digit )
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=256
+    Check Register Error    ${error_please_fill_accountId_10_digits}
+Scenario6 ลงทะเบียนเเบบไม่ผ่าน Password (error 5 digit )'
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=2566
+    Check Register Error    ${error_please_fill_accountId_10_digits}
+Scenario7 ลงทะเบียนเเบบไม่ผ่าน Password ( only number )
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information password=256A
+    Check Register Error    ${error_please_put_password_only_number}
+Scenario8 ลงทะเบียนเเบบไม่ผ่าน Firstname+Lastname (more than 30)
+    Open Web    /register
+    Wait Register Page Load
+    Fill Register information fname lname less than 30
+    Check Register Error    ${error_your_name_length_is_exceed_30_digits}
+
+Scenario9 ลงทะเบียนผ่าน
     Open Web    /register
     Wait Register Page Load
     Fill Register information AccountID=1234567890
     Click Register button
     Check Alert and click OK
     Check Present URL    http://localhost:3000/
-
-Scenario16 Login error not 10 digits
+# Scenario10 ลงทะเบียนผ่าน
+# Scenario11
+# Scenario12 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 30 ตัว ชื่อ>นามสกุล
+# Scenario13 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 30 ตัว ชื่อ<นามสกุล
+Scenario14 login ไม่ผ่าน accountId มีตัวอักษร
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=123456789A
+    Login Page Check Error    ${error_please_put_accountId_only_number}
+Scenario15 login ไม่ผ่าน accountId มี 9 digits
     Open Web    /
     Login Page Wait Load
     Fill Login information AccountID=123456789
     Login Page Check Error    ${error_please_fill_accountId_10_digits}
-
+Scenario16 login ไม่ผ่าน accountId มี 11 digits
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=12345678909
+    Login Page Check Error    ${error_please_fill_accountId_10_digits}
+Scenario17 login ไม่ผ่าน ไม่มี user
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information AccountID=9999999999
+    Login Page Check Error    ${error_not_found_user}
+Scenario18 login ไม่ผ่าน password มีตัวอักษร
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=123A
+    Login Page Check Error    ${error_please_put_password_only_number}
+Scenario19 login ไม่ผ่าน password 3 digits
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=123
+    Login Page Check Error    ${error_please_fill_password_4_digits}
+Scenario20 login ไม่ผ่าน password 5 digits
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=12345
+    Login Page Check Error    ${error_please_fill_password_4_digits}
+Scenario21 login ไม่ผ่าน password ผิด
+    Open Web    /
+    Login Page Wait Load
+    Fill Login information Password=1111 wrong password
+    Login Page Check Error    ${error_password_incorrect}
 Scenario22 Login pass but deposit error
     Open Web    /
     Login Page Wait Load

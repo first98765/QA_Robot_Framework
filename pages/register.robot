@@ -112,6 +112,9 @@ Fill Login information AccountID=123456789
 Fill Login information AccountID=1234567890
     Fill Login Form    1234567890    2566
 
+Fill Login information AccountID=12345678909
+    Fill Login Form    12345678909    2566
+
 Fill Login information AccountID=9999999999
     Fill Login Form    9999999999    9999
 
@@ -120,6 +123,12 @@ Fill Login information Password=123A
 
 Fill Login information Password=123
     Fill Login Form    1234567890    123
+
+Fill Login information Password=12345
+    Fill Login Form    1234567890    12345
+
+Fill Login information Password=1111 wrong password
+    Fill Login Form    1234567890    1111
 
 Click Register button
     Submit Form
