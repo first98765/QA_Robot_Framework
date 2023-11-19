@@ -211,6 +211,82 @@ Scenario46 Log in pass and bill pass
     Input and verify bill payment amount    1
     Click bill payment confirm
 
+Scenario51 ลงทะเบียนเเบบไม่ผ่าน Account number ติดลบ
+    Open Web    /register
+    Wait Register Page Load
+    Input and verify accountId For Register Page    -123456789
+    Input and verify password For Register Page    2566
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Register Error    ${error_please_put_accountId_only_number}
+Scenario52 ลงทะเบียนเเบบไม่ผ่าน Account number เป็นทศนิยม
+    Open Web    /register
+    Wait Register Page Load
+    Input and verify accountId For Register Page    12345678.9
+    Input and verify password For Register Page    2566
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Register Error    ${error_please_put_accountId_only_number}
+
+Scenario53 ลงทะเบียนเเบบไม่ผ่าน password เป็นทศนิยม
+    Open Web    /register
+    Wait Register Page Load
+    ${input_accountId}    Generate Random String    10    [NUMBERS]
+    Input and verify accountId For Register Page    ${input_accountId}
+    Input and verify password For Register Page    25.6
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Register Error    ${error_please_put_password_only_number}
+
+Scenario54 ลงทะเบียนเเบบไม่ผ่าน password ติดลบ
+    Open Web    /register
+    Wait Register Page Load
+    ${input_accountId}    Generate Random String    10    [NUMBERS]
+    Input and verify accountId For Register Page    ${input_accountId}
+    Input and verify password For Register Page    -256
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Register Error    ${error_please_put_password_only_number}
+
+Scenario55 ลงทะเบียนเเบบไม่ผ่าน Account number เป็น math syntax
+    Open Web    /register
+    Wait Register Page Load
+    Input and verify accountId For Register Page    1.23456E+43
+    Input and verify password For Register Page    2566
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Register Error    ${error_please_put_accountId_only_number}
+
+Scenario56 login ไม่ผ่าน accountId ติดลบ
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    -123456789
+    Input and verify password For Login Page    2566
+    Login Page Check Error    ${error_please_put_accountId_only_number}
+
+
+Scenario57 login ไม่ผ่าน accountId เป็นทศนิยม
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    12345678.9
+    Input and verify password For Login Page    2566
+    Login Page Check Error    ${error_please_put_accountId_only_number}
+
+Scenario58 login ไม่ผ่าน password เป็นทศนิยม
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    25.6
+    Login Page Check Error    ${error_please_put_password_only_number}
+
+Scenario59 login ไม่ผ่าน password ติดลบ
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    -256
+    Login Page Check Error    ${error_please_put_password_only_number}
+
+
 # Scenario3
 #    Open Web    /register
 #    Wait Register Page Load
