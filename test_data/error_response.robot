@@ -1,6 +1,7 @@
 *** Variables ***
 ${error_please_put_accountId_only_number}  Please put accountId only number
 ${error_please_fill_accountId_10_digits}  Please fill accountId 10 digits
+${error_account_id_already_existed}  Account ID already existed
 
 ${error_please_fill_password_4_digits}  Please fill password 4 digits
 ${error_please_put_password_only_number}  Please put password only number
