@@ -258,6 +258,86 @@ Scenario46 Log in pass and bill pass
 #    Verify balance    100
 #    Clear Balance
 
+TC28
+    Open Web    /
+    Maximize Browser Window
+    Wait Login Page Load
+    Fill Login Form    -123456789    2566
+    Login Page Check Error    ${error_please_put_password_only_number}
+
+TC29
+    Open Web    /
+    Maximize Browser Window
+    Wait Login Page Load
+    Fill Login Form    12345678.9    2566
+    Login Page Check Error    ${error_please_put_password_only_number}
+
+TC30
+    Open Web    /
+    Maximize Browser Window
+    Wait Login Page Load
+    Fill Login Form    1234567890    25.6
+    Login Page Check Error    ${error_please_fill_password_4_digits}
+
+TC31
+    Open Web    /
+    Maximize Browser Window
+    Wait Login Page Load
+    Fill Login Form    1234567890    -256
+    Login Page Check Error    ${error_please_fill_password_4_digits}  
+
+TC32
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    0
+    Click deposit confirm
+    Check error deposit    ${error_please_put_pnly_number}
+
+TC33
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    -1
+    Click deposit confirm
+    Check error deposit    ${error_please_put_pnly_number}
+    
+TC34
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    100000
+    Click deposit confirm
+
+TC35
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    1.08E+38
+    Click deposit confirm
+    Check error deposit    ${error_please_put_pnly_number}
+
+TC36
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    90071992547409916
+    Click deposit confirm
 
 *** Keywords ***
 Open Web
