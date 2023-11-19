@@ -2,6 +2,7 @@
 Library     SeleniumLibrary
 Library     String
 Resource    ../test_data/valid_data_user.robot
+Resource    ./login.robot
 
 
 *** Keywords ***
@@ -11,11 +12,6 @@ Fill Registration Form
     Input Text    //*[@id='password']    ${password}
     Input Text    //*[@id='firstName']    ${firstName}
     Input Text    //*[@id='lastName']    ${lastName}
-
-Fill Login Form
-    [Arguments]    ${accountID}    ${password}
-    Input Text    //*[@id='accountId']    ${accountID}
-    Input Text    //*[@id='password']    ${password}
 
 Verify firstname is empty For Register Page
     ${firstname}    Get Value    //*[@id='firstName']
