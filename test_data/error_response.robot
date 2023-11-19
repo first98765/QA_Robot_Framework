@@ -11,7 +11,7 @@ ${error_your_name_length_is_exceed_30_digits}  your name length is exceed 30 dig
 
 ${error_not_found_user}  Not Found User
 
-${error_please_put_pnly_number}  Please put only number
+${error_please_put_only_number}  Please put only number
 
 ${error_your_balance_is_not_enough}  your balance isn't not enough
 

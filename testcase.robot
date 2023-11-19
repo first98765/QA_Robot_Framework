@@ -29,7 +29,8 @@ Test Teardown       Close All Browsers
 *** Variables ***
 ${random_number}    Evaluate    ''.join([str(random.randint(0, 9)) for _ in range(10)])    WITH    random
 ${timestamp}        Get Time    epoch    result_format=%s
-
+${max_int}  90071992547409916
+${example_math_syntax}  1.07898E+38
 
 *** Test Cases ***
 Scenario1 ลงทะเบียนเเบบไม่ผ่าน Account number 9 digits
@@ -83,10 +84,33 @@ Scenario9 ลงทะเบียนผ่าน
     Click Register button
     Check Alert and click OK
     Check Present URL    http://localhost:3000/
-# Scenario10 ลงทะเบียนผ่าน
+
+# duplicate with Scenario9 (nom) will skip
+# Scenario10
 # Scenario11
-# Scenario12 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 30 ตัว ชื่อ>นามสกุล
-# Scenario13 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 30 ตัว ชื่อ<นามสกุล
+
+Scenario12 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 30 ตัว
+    Open Web    /register
+    Wait Register Page Load
+    ${input_accountId}    Generate Random String    10    [NUMBERS]
+    Input and verify accountId For Register Page    ${input_accountId}
+    Input and verify password For Register Page    2556
+    Input and verify firstname For Register Page  abcdefghijklmno
+    Input and verify lastname For Register Page    abcdefghijklm
+    Check Alert and click OK
+    Check Present URL    http://localhost:3000/
+
+Scenario13 ลงทะเบียนผ่าน ชื่อ+นามสกุลและช่องว่างได้ 29 ตัว
+    Open Web    /register
+    Wait Register Page Load
+    ${input_accountId}    Generate Random String    10    [NUMBERS]
+    Input and verify accountId For Register Page    ${input_accountId}
+    Input and verify password For Register Page    2556
+    Input and verify firstname For Register Page  abcdefghijklmnopq
+    Input and verify lastname For Register Page    abcdefghijkl
+    Check Alert and click OK
+    Check Present URL    http://localhost:3000/
+
 Scenario14 login ไม่ผ่าน accountId มีตัวอักษร
     Open Web    /
     Login Page Wait Load
@@ -136,7 +160,7 @@ Scenario22 Login pass but deposit error
     Wait Load Account Page
     Input and verify deposit    -1
     Click deposit confirm
-    Check error deposit    ${error_please_put_pnly_number}
+    Check error deposit    ${error_please_put_only_number}
 
 Scenario24 Log in pass and deposit pass but withdraw error
     Open Web    /
@@ -150,7 +174,7 @@ Scenario24 Log in pass and deposit pass but withdraw error
     Wait Load Account Page
     Input and verify withdraw    -1
     Click withdraw confirm
-    Check error withdraw    ${error_please_put_pnly_number}
+    Check error withdraw    ${error_please_put_only_number}
 
 Scenario28 Log in pass and deposit pass and withdraw pass and transfer error
     Open Web    /
@@ -169,7 +193,7 @@ Scenario28 Log in pass and deposit pass and withdraw pass and transfer error
     Input and verify transfer amount    -1
     Click transfer confirm
 
-    Check error transfer    ${error_please_put_pnly_number}
+    Check error transfer    ${error_please_put_only_number}
 
 Scenario37 Log in pass and deposit pass and withdraw pass and transfer pass
     Open Web    /
@@ -188,7 +212,7 @@ Scenario37 Log in pass and deposit pass and withdraw pass and transfer pass
     Input and verify transfer amount    1
     Click transfer confirm
 
-Scenario42 Log in pass and bill error
+Scenario42 log-in ผ่าน เเละ ชำระบิล (ไม่ผ่าน Amount [only number])
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -198,9 +222,37 @@ Scenario42 Log in pass and bill error
     Click bill payment phone charge
     Input and verify bill payment amount    0
     Click bill payment confirm
-    Check error Bill    ${error_please_put_pnly_number}
+    Check error Bill    ${error_please_put_only_number}
 
-Scenario46 Log in pass and bill pass
+Scenario43 log-in ผ่าน เเละ ชำระบิล (ไม่ผ่าน Amount [balance not enough])
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Click bill payment phone charge
+    Input and verify bill payment amount    99999
+    Click bill payment confirm
+    Check error Bill    ${error_your_balance_is_not_enough}
+
+Scenario44 Log in pass and bill pass (nom)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Click bill payment water charge
+    Input and verify bill payment amount    30
+    Click bill payment confirm
+    Verify balance    9970
+
+Scenario45 Log in pass and bill pass (min)
     Open Web    /
     Login Page Wait Load
     Input and verify accountId For Login Page    1234567890
@@ -210,6 +262,26 @@ Scenario46 Log in pass and bill pass
     Click bill payment phone charge
     Input and verify bill payment amount    1
     Click bill payment confirm
+
+Scenario46 Log in pass and bill pass (min+)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Click bill payment water charge
+    Input and verify bill payment amount    2
+    Click bill payment confirm
+    Verify balance    9998
+
+#todo
+# duplicate with Scenario43 skip
+# Scenario47 log-in ผ่าน เเละ ชำระบิล (ไม่ผ่าน Amount [balance not enough])
+# Scenario48 log-in ผ่าน เเละ ชำระบิล (ไม่ผ่าน Amount [balance not enough])
+# Scenario49 log-in ผ่าน เเละ ชำระบิล (ไม่ผ่าน Amount [balance not enough])
 
 Scenario51 ลงทะเบียนเเบบไม่ผ่าน Account number ติดลบ
     Open Web    /register
@@ -285,6 +357,155 @@ Scenario59 login ไม่ผ่าน password ติดลบ
     Input and verify accountId For Login Page    1234567890
     Input and verify password For Login Page    -256
     Login Page Check Error    ${error_please_put_password_only_number}
+
+
+Scenario60 Login pass but deposit error math syntax
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Input and verify deposit    ${example_math_syntax}
+    Click deposit confirm
+    Check error deposit    ${error_please_put_only_number}
+
+Scenario61 Login pass but deposit balnace big int
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    1234567890
+    Input and verify password For Login Page    2566
+    Click Login button
+    Wait Load Account Page
+    Clear Balance
+    Input and verify deposit    ${max_int}
+    Click deposit confirm
+    Sleep  1s
+    Verify balance  ${max_int}
+
+Scenario61 login ผ่าน แต่ withdraw ไม่ผ่าน(Amount เป็น Math Syntax)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify withdraw    ${example_math_syntax}
+    Click withdraw confirm
+    Check error withdraw    ${error_please_put_only_number}
+
+Scenario62 login ผ่าน แต่ withdraw ไม่ผ่าน balance ไม่พอ(Amount เป็น Maxint)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify withdraw    ${max_int}
+    Click withdraw confirm
+    Check error withdraw    ${error_your_balance_is_not_enough}
+
+Scenario63 login ผ่าน แต่ transfer ไม่ผ่าน(Amount เป็น Math Syntax)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify transfer accountID    1234567890
+    Input and verify transfer amount    ${example_math_syntax}
+    Click transfer confirm
+    Check error transfer    ${error_please_put_only_number}
+
+Scenario64 login ผ่าน แต่ transfer ไม่ผ่าน(AccountID เป็น Math Syntax)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify transfer accountID    ${example_math_syntax}
+    Input and verify transfer amount    1000
+    Click transfer confirm
+    Check error transfer    ${error_please_put_accountId_only_number}
+
+Scenario65 login ผ่าน แต่ transfer ไม่ผ่าน(AccountID เป็นทศนิยม)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify transfer accountID    12345678.9
+    Input and verify transfer amount    1000
+    Click transfer confirm
+    Check error transfer    ${error_please_put_accountId_only_number}
+
+Scenario66 login ผ่าน แต่ transfer ไม่ผ่าน(AccountID เป็นค่าลบ)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify transfer accountID    -123456789
+    Input and verify transfer amount    1000
+    Click transfer confirm
+    Check error transfer    ${error_please_put_accountId_only_number}
+    
+Scenario67 login ผ่าน แต่ transfer ไม่ผ่าน(Amount เป็น Maxint)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Input and verify transfer accountID    1234567890
+    Input and verify transfer amount    ${max_int}
+    Click transfer confirm
+    Check error transfer    ${error_your_balance_is_not_enough}
+
+Scenario68 login ผ่าน แต่ bill payment ไม่ผ่าน(Amount เป็น Math Syntax)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Click bill payment phone charge
+    Input and verify bill payment amount    ${example_math_syntax}
+    Click bill payment confirm
+    Check error Bill    ${error_please_put_accountId_only_number}
+
+Scenario69 login ผ่าน แต่ bill payment ไม่ผ่าน(Amount เป็น Maxint)
+    Open Web    /
+    Login Page Wait Load
+    Input and verify accountId For Login Page    ${test_data_account_id}
+    Input and verify password For Login Page    ${test_data_password}
+    Click Login button
+    Wait Load Account Page
+    Mock Data Balance 10000
+    Wait Load Account Page
+    Click bill payment phone charge
+    Input and verify bill payment amount    ${max_int}
+    Click bill payment confirm
+    Check error Bill    ${error_your_balance_is_not_enough}
 
 
 # Scenario3
@@ -409,86 +630,88 @@ Scenario59 login ไม่ผ่าน password ติดลบ
 #    Verify balance    100
 #    Clear Balance
 
-TC28
-    Open Web    /
-    Maximize Browser Window
-    Wait Login Page Load
-    Fill Login Form    -123456789    2566
-    Login Page Check Error    ${error_please_put_password_only_number}
 
-TC29
-    Open Web    /
-    Maximize Browser Window
-    Wait Login Page Load
-    Fill Login Form    12345678.9    2566
-    Login Page Check Error    ${error_please_put_password_only_number}
+#p'print
+# TC28
+#     Open Web    /
+#     Maximize Browser Window
+#     Wait Login Page Load
+#     Fill Login Form    -123456789    2566
+#     Login Page Check Error    ${error_please_put_password_only_number}
 
-TC30
-    Open Web    /
-    Maximize Browser Window
-    Wait Login Page Load
-    Fill Login Form    1234567890    25.6
-    Login Page Check Error    ${error_please_fill_password_4_digits}
+# TC29
+#     Open Web    /
+#     Maximize Browser Window
+#     Wait Login Page Load
+#     Fill Login Form    12345678.9    2566
+#     Login Page Check Error    ${error_please_put_password_only_number}
 
-TC31
-    Open Web    /
-    Maximize Browser Window
-    Wait Login Page Load
-    Fill Login Form    1234567890    -256
-    Login Page Check Error    ${error_please_fill_password_4_digits}  
+# TC30
+#     Open Web    /
+#     Maximize Browser Window
+#     Wait Login Page Load
+#     Fill Login Form    1234567890    25.6
+#     Login Page Check Error    ${error_please_fill_password_4_digits}
 
-TC32
-    Open Web    /
-    Login Page Wait Load
-    Input and verify accountId For Login Page    1234567890
-    Input and verify password For Login Page    2566
-    Click Login button
-    Wait Load Account Page
-    Input and verify deposit    0
-    Click deposit confirm
-    Check error deposit    ${error_please_put_pnly_number}
+# TC31
+#     Open Web    /
+#     Maximize Browser Window
+#     Wait Login Page Load
+#     Fill Login Form    1234567890    -256
+#     Login Page Check Error    ${error_please_fill_password_4_digits}  
 
-TC33
-    Open Web    /
-    Login Page Wait Load
-    Input and verify accountId For Login Page    1234567890
-    Input and verify password For Login Page    2566
-    Click Login button
-    Wait Load Account Page
-    Input and verify deposit    -1
-    Click deposit confirm
-    Check error deposit    ${error_please_put_pnly_number}
+# TC32
+#     Open Web    /
+#     Login Page Wait Load
+#     Input and verify accountId For Login Page    1234567890
+#     Input and verify password For Login Page    2566
+#     Click Login button
+#     Wait Load Account Page
+#     Input and verify deposit    0
+#     Click deposit confirm
+#     Check error deposit    ${error_please_put_only_number}
+
+# TC33
+#     Open Web    /
+#     Login Page Wait Load
+#     Input and verify accountId For Login Page    1234567890
+#     Input and verify password For Login Page    2566
+#     Click Login button
+#     Wait Load Account Page
+#     Input and verify deposit    -1
+#     Click deposit confirm
+#     Check error deposit    ${error_please_put_only_number}
     
-TC34
-    Open Web    /
-    Login Page Wait Load
-    Input and verify accountId For Login Page    1234567890
-    Input and verify password For Login Page    2566
-    Click Login button
-    Wait Load Account Page
-    Input and verify deposit    100000
-    Click deposit confirm
+# TC34
+#     Open Web    /
+#     Login Page Wait Load
+#     Input and verify accountId For Login Page    1234567890
+#     Input and verify password For Login Page    2566
+#     Click Login button
+#     Wait Load Account Page
+#     Input and verify deposit    100000
+#     Click deposit confirm
 
-TC35
-    Open Web    /
-    Login Page Wait Load
-    Input and verify accountId For Login Page    1234567890
-    Input and verify password For Login Page    2566
-    Click Login button
-    Wait Load Account Page
-    Input and verify deposit    1.08E+38
-    Click deposit confirm
-    Check error deposit    ${error_please_put_pnly_number}
+# TC35
+#     Open Web    /
+#     Login Page Wait Load
+#     Input and verify accountId For Login Page    1234567890
+#     Input and verify password For Login Page    2566
+#     Click Login button
+#     Wait Load Account Page
+#     Input and verify deposit    1.08E+38
+#     Click deposit confirm
+#     Check error deposit    ${error_please_put_only_number}
 
-TC36
-    Open Web    /
-    Login Page Wait Load
-    Input and verify accountId For Login Page    1234567890
-    Input and verify password For Login Page    2566
-    Click Login button
-    Wait Load Account Page
-    Input and verify deposit    90071992547409916
-    Click deposit confirm
+# TC36
+#     Open Web    /
+#     Login Page Wait Load
+#     Input and verify accountId For Login Page    1234567890
+#     Input and verify password For Login Page    2566
+#     Click Login button
+#     Wait Load Account Page
+#     Input and verify deposit    90071992547409916
+#     Click deposit confirm
 
 *** Keywords ***
 Open Web

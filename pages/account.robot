@@ -86,6 +86,7 @@ Input and verify bill payment amount
 
 Wait Load Account Page
     Sleep    2s
+    # Wait Until Element Is Visible    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
     # Wait Until Element Contains    //*[@id="root"]/div/div/div/div[2]/article/h2[1]    Account ID:
 
 Check error deposit
@@ -99,9 +100,11 @@ Check error withdraw
     Should Be Equal As Strings    ${element_text}    ${input_error}
 
 Check error Bill
+    # [Arguments]    ${input_error}
+    # ${element_text}    Get Text    xpath=//*[@cid="billpayment-error-mes"]
+    # Should Be Equal As Strings    ${element_text}    ${input_error}
     [Arguments]    ${input_error}
-    ${element_text}    Get Text    xpath=//*[@cid="billpayment-error-mes"]
-    Should Be Equal As Strings    ${element_text}    ${input_error}
+    Wait Until Element Contains    xpath=//*[@cid="billpayment-error-mes"]    ${input_error}
 
 Check error transfer
     [Arguments]    ${input_error}
@@ -110,7 +113,13 @@ Check error transfer
     # Should Be Equal As Strings    ${element_text}    ${input_error}
 
 Clear Balance
-    Sleep    30ms
+    Sleep    1s
     ${element_text}    Get Text    xpath=//*[@id="root"]/div/div/div/div[2]/article/h1[3]
     Input and verify withdraw    ${element_text}
     Click withdraw confirm
+
+Mock Data Balance 10000
+    Clear Balance
+    Wait Load Account Page
+    Input and verify deposit    10000
+    Click deposit confirm
